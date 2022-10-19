@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 
 public class SocketClient implements Client {
     private PropertyChangeSupport support;
@@ -78,6 +79,16 @@ public class SocketClient implements Client {
             throw new RuntimeException(e);
         }
         return b;
+    }
+
+    @Override
+    public List<String> getAllUsers() {
+        try {
+            Request response = request("getAllUsers", null);
+            return (List<String>) response.getArg();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

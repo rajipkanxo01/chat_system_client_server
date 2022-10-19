@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 
 public class ServerSocketHandler implements Runnable {
     private Socket socket;
@@ -47,6 +48,9 @@ public class ServerSocketHandler implements Runnable {
             ("checkLogIn".equals(readObject.getType())) {
                 boolean status = loginModelServer.checkLogIn((User) readObject.getArg());
                 outToClient.writeObject(new Request("checkLogIn", status));
+            } else if ("getAllUsers".equals(readObject.getType())) {
+                List<String> allUsers = loginModelServer.getAllUsers();
+                outToClient.writeObject(new Request("getAllUsers", allUsers));
             }
 
         } catch (IOException | ClassNotFoundException e) {

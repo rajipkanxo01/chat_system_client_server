@@ -7,6 +7,6 @@ public interface LoginModel extends Subject {
     void addUser (String username, String password);
     boolean checkSignUp (String username);
     boolean checkLogIn (User user);
-    User getUser ();
+
 
 }

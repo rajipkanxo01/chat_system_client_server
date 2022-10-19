@@ -3,6 +3,7 @@ package client.model;
 import client.networking.Client;
 import shared.User;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
@@ -13,6 +14,16 @@ public class LoginModelImp implements LoginModel {
     public LoginModelImp(Client client) {
         support = new PropertyChangeSupport(this);
         this.client = client;
+        client.addListener("userAdded", this::userAdded);
+//        client.addListener("userRemoved", this::userRemoved);
+    }
+
+//    private void userRemoved(PropertyChangeEvent event) {
+//        support.firePropertyChange("userRemoved", null, event.getNewValue());
+//    }
+
+    private void userAdded(PropertyChangeEvent event) {
+        support.firePropertyChange("userAdded", null, event.getNewValue());
     }
 
     @Override
@@ -31,10 +42,6 @@ public class LoginModelImp implements LoginModel {
         return client.checkSignIn(user);
     }
 
-    @Override
-    public User getUser() {
-        return null;
-    }
 
     @Override
     public void addListener(String eventName, PropertyChangeListener listener) {

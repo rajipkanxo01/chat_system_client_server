@@ -1,12 +1,14 @@
 package client.core;
 
 import client.view.logInView.LogInViewModel;
+import client.view.mainView.MainViewModel;
 import client.view.signUpView.SignUpViewModel;
 
 public class ViewModelFactory {
     private ModelFactory mf;
     private LogInViewModel loginVM;
     private SignUpViewModel signupVM;
+    private MainViewModel  mainVM;
 
     public ViewModelFactory(ModelFactory mf) {
         this.mf = mf;
@@ -24,5 +26,12 @@ public class ViewModelFactory {
             signupVM = new SignUpViewModel(mf.getLoginModel());
         }
         return signupVM;
+    }
+
+    public MainViewModel getMainVM () {
+        if (mainVM == null) {
+            mainVM = new MainViewModel(mf);
+        }
+        return mainVM;
     }
 }

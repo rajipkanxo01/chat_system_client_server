@@ -19,14 +19,6 @@
                         <Font name="Sans Serif Collection" size="32.0" />
                     </font>
                 </Label>
-                <Button layoutX="63.0" layoutY="228.0" mnemonicParsing="false" onAction="#onSignInButton" prefHeight="18.0" prefWidth="172.0" style="-fx-border-radius: 15; -fx-border-color: #FFFFFF; -fx-background-color: transparent; -fx-padding: 0px;" text="SIGN IN" textFill="WHITE">
-                    <font>
-                        <Font name="Sans Serif Collection" size="18.0" />
-                    </font>
-                    <opaqueInsets>
-                        <Insets />
-                    </opaqueInsets>
-                </Button>
                 <Label layoutX="63.0" layoutY="94.0" text="Already have an account," textFill="#fce3e3" textOverrun="CLIP">
                     <font>
                         <Font name="Sans Serif Collection" size="16.0" />
@@ -37,6 +29,14 @@
                         <Font name="Sans Serif Collection" size="16.0" />
                     </font>
                 </Label>
+            <Button layoutX="58.0" layoutY="259.0" mnemonicParsing="false" onAction="#onSignInButton" prefHeight="38.0" prefWidth="191.0" style="-fx-border-radius: 15; -fx-background-radius: 15; -fx-border-color: #ffffff; -fx-background-color: #41C2CB; -fx-padding: 0;" text="SIGN IN" textFill="WHITE">
+               <font>
+                  <Font name="Sans Serif Collection" size="18.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Button>
             </children>
         </Group>
         <Group>
@@ -58,11 +58,11 @@
                     </opaqueInsets>
                 </Button>
                 <TextField fx:id="repeatPassword" layoutX="17.0" layoutY="194.0" prefHeight="35.0" prefWidth="231.0" promptText="Repeat Password" style="-fx-background-color: #EDEDEE;" />
-            <Label fx:id="errorLabel" layoutX="11.0" layoutY="322.0" prefHeight="52.0" prefWidth="275.0" textFill="#d70000" textOverrun="CLIP">
-               <font>
-                  <Font name="Sans Serif Collection" size="16.0" />
-               </font>
-            </Label>
+                <Label fx:id="errorLabel" layoutX="11.0" layoutY="322.0" prefHeight="52.0" prefWidth="275.0" textFill="#d70000" textOverrun="CLIP">
+                    <font>
+                        <Font name="Sans Serif Collection" size="16.0" />
+                    </font>
+                </Label>
             </children>
         </Group>
     </children>

@@ -6,6 +6,8 @@ import shared.UserList;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginModelServerImpServer implements LoginModelServer {
     private PropertyChangeSupport support;
@@ -35,15 +37,15 @@ public class LoginModelServerImpServer implements LoginModelServer {
         return status;
     }
 
+    public List<String> getAllUsers () {
+        return userList.getAllUsername();
+    }
+
     @Override
     public boolean checkLogIn(User user) {
         return userList.doesUserExists(user);
     }
 
-    @Override
-    public User getUser() {
-        return null;
-    }
 
     @Override
     public void addListener(String eventName, PropertyChangeListener listener) {
