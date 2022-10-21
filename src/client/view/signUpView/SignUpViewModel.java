@@ -8,7 +8,7 @@ import shared.User;
 
 public class SignUpViewModel {
     private LoginModel loginModel;
-    private StringProperty username, password, repeatPassword, errorLabel;
+    private StringProperty username, password, repeatPassword, errorLabel, playingWith;
 
     public SignUpViewModel(LoginModel loginModel) {
         this.loginModel = loginModel;
@@ -16,6 +16,7 @@ public class SignUpViewModel {
         password = new SimpleStringProperty();
         repeatPassword = new SimpleStringProperty();
         errorLabel = new SimpleStringProperty();
+        playingWith = new SimpleStringProperty();
     }
 
     public void addUser(String username, String password, String repeat) {
@@ -72,5 +73,10 @@ public class SignUpViewModel {
 
     public StringProperty errorLabelProperty() {
         return errorLabel;
+    }
+
+
+    public StringProperty playingWithProperty() {
+        return playingWith;
     }
 }

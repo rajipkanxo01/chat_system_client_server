@@ -39,6 +39,8 @@ public class SocketClient implements Client {
             outToServer.writeObject(new Request("Listener", null));
             while (true) {
                 Request request = (Request) inFromServer.readObject();
+
+                System.out.println(request.getType());
                 support.firePropertyChange(request.getType(), null, request.getArg());
             }
         } catch (IOException | ClassNotFoundException e) {
@@ -71,14 +73,18 @@ public class SocketClient implements Client {
 
     @Override
     public boolean checkSignIn(User user) {
-        boolean b;
+        boolean status;
         try {
             Request response = request("checkLogIn", user);
-            b = (boolean) response.getArg();
+            status = (boolean) response.getArg();
+
+//            if (status) {
+//                startClient();
+//            }
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        return b;
+        return status;
     }
 
     @Override
@@ -86,6 +92,28 @@ public class SocketClient implements Client {
         try {
             Request response = request("getAllUsers", null);
             return (List<String>) response.getArg();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void sendGameRequest(String username) {
+        try {
+            Request response = request("sendGameRequest", username);
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean getGameRequest() {
+        return false;
+    }
+
+    public void changePlayerTurn () {
+        try {
+            Request response = request("changePlayerTurn",null);
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }

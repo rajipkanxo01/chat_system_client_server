@@ -11,6 +11,7 @@ public class LogInViewModel {
 
     private StringProperty username, password, errorLabel;
 
+
     public LogInViewModel(LoginModel loginModel) {
         this.loginModel = loginModel;
         username = new SimpleStringProperty();

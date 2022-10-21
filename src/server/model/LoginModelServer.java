@@ -10,6 +10,8 @@ public interface LoginModelServer extends Subject {
     boolean checkSignUp(String username);
     boolean checkLogIn(User user);
 
-    List<String> getAllUsers ();
+   List<String> getAllUsers ();
+
+
 
 }

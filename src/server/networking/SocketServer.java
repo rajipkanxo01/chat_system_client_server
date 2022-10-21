@@ -19,14 +19,11 @@ public class SocketServer {
         try {
             ServerSocket welcomeSocket = new ServerSocket(2001);
             System.out.println("Server Started...");
-            List<ServerSocketHandler> handlers = new ArrayList<>();
+            ConnectionPool connectionPool = new ConnectionPool();
 
             while (true) {
                 Socket socket = welcomeSocket.accept();
-                System.out.println("Client accepted");
-                ServerSocketHandler handler = new ServerSocketHandler(socket, loginModelServer);
-                handlers.add(handler);
-                System.out.println("handlers: " + handlers.size());
+                ServerSocketHandler handler = new ServerSocketHandler(socket, loginModelServer, connectionPool);
                 new Thread(handler).start();
             }
         } catch (IOException e) {

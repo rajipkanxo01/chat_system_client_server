@@ -6,6 +6,7 @@ import shared.User;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.List;
 
 public class LoginModelImp implements LoginModel {
     private PropertyChangeSupport support;
@@ -14,8 +15,8 @@ public class LoginModelImp implements LoginModel {
     public LoginModelImp(Client client) {
         support = new PropertyChangeSupport(this);
         this.client = client;
+        client.startClient();
         client.addListener("userAdded", this::userAdded);
-//        client.addListener("userRemoved", this::userRemoved);
     }
 
 //    private void userRemoved(PropertyChangeEvent event) {
@@ -23,6 +24,7 @@ public class LoginModelImp implements LoginModel {
 //    }
 
     private void userAdded(PropertyChangeEvent event) {
+        System.out.println("fired in login Implementation");
         support.firePropertyChange("userAdded", null, event.getNewValue());
     }
 
@@ -30,6 +32,7 @@ public class LoginModelImp implements LoginModel {
     public void addUser(String username, String password) {
         // calls add user method from client
         client.addUser(new User(username, password));
+
     }
 
     @Override
@@ -42,6 +45,10 @@ public class LoginModelImp implements LoginModel {
         return client.checkSignIn(user);
     }
 
+    @Override
+    public List<String> getAllUsers() {
+        return client.getAllUsers();
+    }
 
     @Override
     public void addListener(String eventName, PropertyChangeListener listener) {

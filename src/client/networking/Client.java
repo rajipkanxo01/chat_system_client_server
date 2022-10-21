@@ -12,5 +12,11 @@ public interface Client extends Subject {
 
    List<String> getAllUsers ();
 
+   void sendGameRequest (String username);
+
+   boolean getGameRequest ();
+
     void startClient();
+
+    void changePlayerTurn();
 }

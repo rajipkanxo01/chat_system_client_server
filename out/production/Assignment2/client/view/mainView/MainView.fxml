@@ -17,55 +17,82 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00ABB3;">
             <children>
                 <ListView fx:id="allUsersList" layoutX="16.0" layoutY="29.0" prefHeight="346.0" prefWidth="175.0" />
-                <Button layoutX="66.0" layoutY="391.0" mnemonicParsing="false" text="Select User" />
+                <Button layoutX="62.0" layoutY="389.0" mnemonicParsing="false" onAction="#onSelectUser" text="Select User" />
             </children>
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="495.0" prefWidth="524.0" style="-fx-background-color: #3C4048;">
             <children>
-            <Rectangle arcHeight="5.0" arcWidth="10.0" fill="#1f93ff00" height="250.0" layoutX="101.0" layoutY="84.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" width="300.0" />
-            <Button layoutX="224.0" layoutY="402.0" mnemonicParsing="false" text="Reset" />
+                <Rectangle arcHeight="5.0" arcWidth="10.0" fill="#1f93ff00" height="250.0" layoutX="101.0" layoutY="84.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="2.0" width="300.0" />
+                <Button layoutX="224.0" layoutY="402.0" mnemonicParsing="false" text="Reset" />
                 <Line endX="-100.00001525878906" endY="212.60000610351562" layoutX="301.0" layoutY="104.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
                 <Line endX="-100.00001525878906" endY="212.60000610351562" layoutX="407.0" layoutY="103.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
                 <Line endX="135.79998779296875" endY="-1.52587890625E-5" layoutX="237.0" layoutY="169.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
                 <Line endX="139.20001220703125" endY="-1.52587890625E-5" layoutX="236.0" layoutY="245.0" startX="-100.0" stroke="WHITE" strokeWidth="3.0" />
-            <Label layoutX="154.0" style="-fx-text-fill: #ffffff;" text="Tic Tac Toe" textFill="WHITE">
-               <font>
-                  <Font name="Microsoft Sans Serif" size="36.0" />
-               </font>
-            </Label>
-            <Label layoutX="170.0" layoutY="50.0" text="This Users (X) Turn" textFill="#23f268">
-               <font>
-                  <Font name="SansSerif Regular" size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="170.0" layoutY="352.0" text="This User (X) Wins" textFill="#23f268">
-               <font>
-                  <Font name="SansSerif Regular" size="18.0" />
-               </font>
-            </Label>
-            <GridPane layoutX="103.0" layoutY="87.0" prefHeight="240.0" prefWidth="291.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.199951171875" minWidth="10.0" prefWidth="103.6" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.60003662109375" minWidth="10.0" prefWidth="107.99996337890624" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.60003662109375" minWidth="10.0" prefWidth="87.20003662109374" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Button mnemonicParsing="false" prefHeight="81.0" prefWidth="98.0" style="-fx-background-color: transparent;" text="Button" textFill="TRANSPARENT" />
-                  <Button mnemonicParsing="false" prefHeight="81.0" prefWidth="98.0" style="-fx-background-color: transparent;" text="Button" textFill="TRANSPARENT" GridPane.columnIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="81.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="Button" textFill="TRANSPARENT" GridPane.columnIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="81.0" prefWidth="98.0" style="-fx-background-color: transparent;" text="Button" textFill="TRANSPARENT" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="81.0" prefWidth="98.0" style="-fx-background-color: transparent;" text="Button" textFill="TRANSPARENT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="81.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="Button" textFill="TRANSPARENT" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <Button mnemonicParsing="false" prefHeight="81.0" prefWidth="98.0" style="-fx-background-color: transparent;" text="Button" textFill="TRANSPARENT" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="81.0" prefWidth="98.0" style="-fx-background-color: transparent;" text="Button" textFill="TRANSPARENT" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button mnemonicParsing="false" prefHeight="81.0" prefWidth="100.0" style="-fx-background-color: transparent;" text="Button" textFill="TRANSPARENT" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-               </children>
-            </GridPane>
+                <Label layoutX="154.0" style="-fx-text-fill: #ffffff;" text="Tic Tac Toe" textFill="WHITE">
+                    <font>
+                        <Font name="Microsoft Sans Serif" size="36.0" />
+                    </font>
+                </Label>
+                <Label layoutX="170.0" layoutY="50.0" text="This Users (X) Turn" textFill="#23f268">
+                    <font>
+                        <Font name="SansSerif Regular" size="18.0" />
+                    </font>
+                </Label>
+                <Label layoutX="170.0" layoutY="352.0" text="This User (X) Wins" textFill="#23f268">
+                    <font>
+                        <Font name="SansSerif Regular" size="18.0" />
+                    </font>
+                </Label>
+                <GridPane fx:id="gridPane" layoutX="103.0" layoutY="87.0" prefHeight="240.0" prefWidth="291.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.199951171875" minWidth="10.0" prefWidth="103.6" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.60003662109375" minWidth="10.0" prefWidth="107.99996337890624" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.60003662109375" minWidth="10.0" prefWidth="87.20003662109374" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Button fx:id="button1" mnemonicParsing="false" prefHeight="81.0" prefWidth="98.0" style="-fx-background-color: transparent;" textFill="#f2f2f2">
+                     <font>
+                        <Font name="System Bold" size="34.0" />
+                     </font></Button>
+                        <Button fx:id="button3" mnemonicParsing="false" prefHeight="81.0" prefWidth="98.0" style="-fx-background-color: transparent;" textFill="#f2f2f2" GridPane.columnIndex="2">
+                     <font>
+                        <Font name="System Bold" size="34.0" />
+                     </font></Button>
+                        <Button fx:id="button2" mnemonicParsing="false" prefHeight="81.0" prefWidth="100.0" style="-fx-background-color: transparent;" textFill="#f2f2f2" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="System Bold" size="34.0" />
+                     </font></Button>
+                        <Button fx:id="button4" mnemonicParsing="false" prefHeight="81.0" prefWidth="98.0" style="-fx-background-color: transparent;" textFill="#f2f2f2" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="34.0" />
+                     </font></Button>
+                        <Button fx:id="button5" mnemonicParsing="false" prefHeight="81.0" prefWidth="98.0" style="-fx-background-color: transparent;" textFill="#f2f2f2" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="34.0" />
+                     </font></Button>
+                        <Button fx:id="button6" mnemonicParsing="false" prefHeight="81.0" prefWidth="100.0" style="-fx-background-color: transparent;" textFill="#f2f2f2" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Bold" size="34.0" />
+                     </font></Button>
+                        <Button fx:id="button7" mnemonicParsing="false" prefHeight="81.0" prefWidth="98.0" style="-fx-background-color: transparent;" textFill="#f2f2f2" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="34.0" />
+                     </font></Button>
+                        <Button fx:id="button8" mnemonicParsing="false" prefHeight="81.0" prefWidth="98.0" style="-fx-background-color: transparent;" textFill="#f2f2f2" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="34.0" />
+                     </font></Button>
+                        <Button fx:id="button9" mnemonicParsing="false" prefHeight="81.0" prefWidth="100.0" style="-fx-background-color: transparent;" textFill="#f2f2f2" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="34.0" />
+                     </font></Button>
+                    </children>
+                </GridPane>
             </children>
         </AnchorPane>
     </items>

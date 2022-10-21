@@ -2,7 +2,6 @@ package server.model;
 
 import client.networking.Client;
 import shared.User;
-import shared.UserList;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -12,24 +11,24 @@ import java.util.List;
 public class LoginModelServerImpServer implements LoginModelServer {
     private PropertyChangeSupport support;
 
-    private UserList userList;
+    private List<User> userList;
 
     public LoginModelServerImpServer() {
         support = new PropertyChangeSupport(this);
-        userList = new UserList();
+        userList = new ArrayList<>();
     }
 
     @Override
     public void addUser(User user) {
-        userList.addUser(user);
-        System.out.println(userList.getNumberOfUsers());
+        userList.add(user);
+        System.out.println(userList.size());
     }
 
     @Override
     public boolean checkSignUp(String username) {
         boolean status = true;
-        for (int i = 0; i < userList.getNumberOfUsers(); i++) {
-            if (userList.getUser(i).getUsername().equals(username)) {
+        for (User user : userList) {
+            if (user.getUsername().equals(username)) {
                 status = false;
                 break;
             }
@@ -38,12 +37,19 @@ public class LoginModelServerImpServer implements LoginModelServer {
     }
 
     public List<String> getAllUsers () {
-        return userList.getAllUsername();
+        List<String> username = new ArrayList<>();
+        for (User user: userList) {
+            username.add(user.getUsername());
+        }
+        return username;
     }
 
     @Override
     public boolean checkLogIn(User user) {
-        return userList.doesUserExists(user);
+        if (userList.contains(user)) {
+            support.firePropertyChange("NewListener",null,user);
+        }
+        return userList.contains(user);
     }
 
 
