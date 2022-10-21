@@ -42,7 +42,7 @@ public class LogInViewModel {
     public void clearAll() {
         new Thread(() -> { // Lambda Expression
             try {
-                Thread.sleep(3000);
+                Thread.sleep(1000);
                 username.setValue("");
                 password.setValue("");
                 Platform.runLater(() -> errorLabel.setValue(""));

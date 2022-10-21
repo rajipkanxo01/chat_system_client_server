@@ -2,10 +2,10 @@ package client.view.mainView;
 
 import client.core.ModelFactory;
 import javafx.application.Platform;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import shared.User;
 
 
 import java.beans.PropertyChangeEvent;
@@ -16,30 +16,25 @@ public class MainViewModel {
     private ModelFactory modelFactory;
 
 
-
-
     public MainViewModel(ModelFactory modelFactory) {
         this.modelFactory = modelFactory;
 
         List<String> list = modelFactory.getLoginModel().getAllUsers();
         allUsers = FXCollections.observableArrayList(list);
 
-        modelFactory.getLoginModel().addListener("NewUserAdded", this::userAdded);
-
-//        user.setValue(modelFactory.getLoginModel().getUser().getUsername());
+        modelFactory.getLoginModel().addListener("userLoggedIn", this::userAdded);
     }
 
     private void userAdded(PropertyChangeEvent event) {
-        System.out.println("fired in main view model");
-        Platform.runLater(() -> allUsers.add((String) event.getNewValue()));
+        System.out.println("User list size:" + allUsers.size());
+        Platform.runLater(() -> allUsers.add(((User) event.getNewValue()).getUsername()));
+        System.out.println("User list size:" + allUsers.size());
     }
 
 
     public ObservableList<String> getAllUsers() {
         return allUsers;
     }
-
-
 
 
 }

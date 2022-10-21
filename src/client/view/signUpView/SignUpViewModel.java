@@ -44,12 +44,11 @@ public class SignUpViewModel {
     public void clearAll() {
         new Thread(() -> { // Lambda Expression
             try {
-                Thread.sleep(3000);
+                Thread.sleep(1000);
                 username.setValue("");
                 password.setValue("");
                 repeatPassword.setValue("");
-//                errorLabel.setValue("");
-                Platform.runLater(() -> errorLabel.setValue(""));
+                errorLabel.setValue("");
             } catch (InterruptedException ex) {
                 throw new RuntimeException(ex);
             }

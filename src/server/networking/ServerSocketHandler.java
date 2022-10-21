@@ -1,5 +1,6 @@
 package server.networking;
 
+import server.model.ChatModelServer;
 import server.model.LoginModelServer;
 import shared.User;
 import shared.transferObjects.Request;
@@ -15,15 +16,17 @@ import java.util.List;
 public class ServerSocketHandler implements Runnable {
     private Socket socket;
     private LoginModelServer loginModelServer;
+    private ChatModelServer chatModelServer;
     private ObjectInputStream inFromClient;
     private ObjectOutputStream outToClient;
     private PropertyChangeSupport support;
     private ConnectionPool cp;
     private Request readObject;
 
-    public ServerSocketHandler(Socket socket, LoginModelServer loginModelServer, ConnectionPool cp) {
+    public ServerSocketHandler(Socket socket, LoginModelServer loginModelServer, ChatModelServer chatModelServer, ConnectionPool cp) {
         this.socket = socket;
         this.loginModelServer = loginModelServer;
+        this.chatModelServer = chatModelServer;
         this.cp = cp;
 
         support = new PropertyChangeSupport(this);
@@ -43,7 +46,7 @@ public class ServerSocketHandler implements Runnable {
             readObject = (Request) inFromClient.readObject();
 
             if ("Listener".equals(readObject.getType())) {
-//                ticTacToeServer.addListener("NewUserAdded", this::onNewUserAdded);
+                loginModelServer.addListener("userLoggedIn", this::onUserLoggedIn);
             } else if
             ("checkSignUp".equals(readObject.getType())) {
                 boolean status = loginModelServer.checkSignUp((String) readObject.getArg());
@@ -59,9 +62,9 @@ public class ServerSocketHandler implements Runnable {
                 System.out.println("Log In Status: " + status);
                 outToClient.writeObject(new Request("checkLogIn", status));
                 cp.addConnection(this);
-//                if (status) {
+                if (status) {
 //                    cp.broadCastUsername(((User) readObject.getArg()).getUsername());
-//                }
+                }
 
             } else if
             ("getAllUsers".equals(readObject.getType())) {
@@ -74,18 +77,27 @@ public class ServerSocketHandler implements Runnable {
         }
     }
 
-    private void onNewUserAdded(PropertyChangeEvent event) {
+    private void onUserLoggedIn(PropertyChangeEvent event) {
         try {
             outToClient.writeObject(new Request(event.getPropertyName(), event.getNewValue()));
+            System.out.println(event.getPropertyName() + ": " + support.getPropertyChangeListeners().length);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+//    private void onNewUserAdded(PropertyChangeEvent event) {
+//        try {
+//            outToClient.writeObject(new Request(event.getPropertyName(), event.getNewValue()));
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
 
     public void sendUsername(String username) {
         try {
-            outToClient.writeObject(new Request("userAdded", username));
+            outToClient.writeObject(new Request("userLoggedIn", username));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

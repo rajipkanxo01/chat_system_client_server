@@ -43,10 +43,9 @@ public class SocketClient implements Client {
         try {
             outToServer.writeObject(new Request("Listener",null));
             while (true) {
-                System.out.println("inside while loop");
+                System.out.println("listen to server inside while");
                 Request request = (Request) inFromServer.readObject();
 
-                System.out.println(request.getType() + " :socket client");
                 support.firePropertyChange(request.getType(), null, request.getArg());
             }
         } catch (IOException | ClassNotFoundException e) {
