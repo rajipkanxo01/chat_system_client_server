@@ -1,6 +1,5 @@
 package server.networking;
 
-import javafx.application.Platform;
 import server.model.LoginModelServer;
 import shared.User;
 import shared.transferObjects.Request;
@@ -44,8 +43,7 @@ public class ServerSocketHandler implements Runnable {
             readObject = (Request) inFromClient.readObject();
 
             if ("Listener".equals(readObject.getType())) {
-
-                // not adding as a lister
+//                ticTacToeServer.addListener("NewUserAdded", this::onNewUserAdded);
             } else if
             ("checkSignUp".equals(readObject.getType())) {
                 boolean status = loginModelServer.checkSignUp((String) readObject.getArg());
@@ -69,12 +67,17 @@ public class ServerSocketHandler implements Runnable {
             ("getAllUsers".equals(readObject.getType())) {
                 List<String> allUsers = loginModelServer.getAllUsers();
                 outToClient.writeObject(new Request("getAllUsers", allUsers));
-            } else if ("sendGameRequest".equals(readObject.getType())) {
-                System.out.println("game request is send from handler");
-                cp.broadCastGameRequest(String.valueOf(readObject.getArg()));
             }
 
         } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void onNewUserAdded(PropertyChangeEvent event) {
+        try {
+            outToClient.writeObject(new Request(event.getPropertyName(), event.getNewValue()));
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }

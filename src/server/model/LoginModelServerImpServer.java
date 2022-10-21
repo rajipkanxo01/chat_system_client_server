@@ -21,6 +21,7 @@ public class LoginModelServerImpServer implements LoginModelServer {
     @Override
     public void addUser(User user) {
         userList.add(user);
+        support.firePropertyChange("NewUserAdded",null,user);
         System.out.println(userList.size());
     }
 

@@ -27,14 +27,5 @@ public class ConnectionPool {
         return handlers.size();
     }
 
-    public void broadCastGameRequest(String username) {
-        for (ServerSocketHandler socketHandler : handlers) {
-            if (socketHandler.getUsername().equals(username)) {
-//                Confirmation.showAlert("Player");
-                System.out.println("game request is send from cp" + username);
-
-            }
-        }
-    }
 
 }

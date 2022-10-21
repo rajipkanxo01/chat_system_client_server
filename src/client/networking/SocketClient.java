@@ -13,6 +13,8 @@ import java.util.List;
 
 public class SocketClient implements Client {
     private PropertyChangeSupport support;
+    private User user;
+
 
     public SocketClient() {
         support = new PropertyChangeSupport(this);
@@ -32,15 +34,19 @@ public class SocketClient implements Client {
         }
     }
 
+
+
+
     // It sends a request to the server to start listening to it, and then it listens to the server and fires a property
     //  change event for each request it receives
     private void listenToServer(ObjectOutputStream outToServer, ObjectInputStream inFromServer) {
         try {
-            outToServer.writeObject(new Request("Listener", null));
+            outToServer.writeObject(new Request("Listener",null));
             while (true) {
+                System.out.println("inside while loop");
                 Request request = (Request) inFromServer.readObject();
 
-                System.out.println(request.getType());
+                System.out.println(request.getType() + " :socket client");
                 support.firePropertyChange(request.getType(), null, request.getArg());
             }
         } catch (IOException | ClassNotFoundException e) {
@@ -98,26 +104,19 @@ public class SocketClient implements Client {
     }
 
     @Override
-    public void sendGameRequest(String username) {
-        try {
-            Request response = request("sendGameRequest", username);
-        } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
     public boolean getGameRequest() {
         return false;
     }
 
-    public void changePlayerTurn () {
+    public void changePlayerTurn() {
         try {
-            Request response = request("changePlayerTurn",null);
+            Request response = request("changePlayerTurn", null);
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
+
+
 
 
     private Request request(String type, Object arg) throws IOException, ClassNotFoundException {

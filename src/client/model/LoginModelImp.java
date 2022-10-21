@@ -15,8 +15,8 @@ public class LoginModelImp implements LoginModel {
     public LoginModelImp(Client client) {
         support = new PropertyChangeSupport(this);
         this.client = client;
-        client.startClient();
-        client.addListener("userAdded", this::userAdded);
+     client.startClient();
+        client.addListener("NewUserAdded", this::userAdded);
     }
 
 //    private void userRemoved(PropertyChangeEvent event) {
@@ -25,7 +25,7 @@ public class LoginModelImp implements LoginModel {
 
     private void userAdded(PropertyChangeEvent event) {
         System.out.println("fired in login Implementation");
-        support.firePropertyChange("userAdded", null, event.getNewValue());
+        support.firePropertyChange(event);
     }
 
     @Override
@@ -54,6 +54,8 @@ public class LoginModelImp implements LoginModel {
     public void addListener(String eventName, PropertyChangeListener listener) {
         support.addPropertyChangeListener(eventName, listener);
     }
+
+
 
     @Override
     public void removeListener(String eventName, PropertyChangeListener listener) {
