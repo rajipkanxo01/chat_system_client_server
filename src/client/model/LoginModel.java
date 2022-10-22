@@ -12,7 +12,8 @@ public interface LoginModel extends Subject {
 
     boolean checkLogIn(User user);
 
-    List<String> getAllUsers();
+    User getUser();
+
 
 
 }

@@ -1,5 +1,6 @@
 package client.networking;
 
+import shared.Message;
 import shared.User;
 import shared.transferObjects.Request;
 
@@ -41,7 +42,7 @@ public class SocketClient implements Client {
     //  change event for each request it receives
     private void listenToServer(ObjectOutputStream outToServer, ObjectInputStream inFromServer) {
         try {
-            outToServer.writeObject(new Request("Listener",null));
+            outToServer.writeObject(new Request("Listener",user));
             while (true) {
                 System.out.println("listen to server inside while");
                 Request request = (Request) inFromServer.readObject();
@@ -83,9 +84,6 @@ public class SocketClient implements Client {
             Request response = request("checkLogIn", user);
             status = (boolean) response.getArg();
 
-//            if (status) {
-//                startClient();
-//            }
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -103,18 +101,13 @@ public class SocketClient implements Client {
     }
 
     @Override
-    public boolean getGameRequest() {
-        return false;
-    }
-
-    public void changePlayerTurn() {
+    public void sendMessage(Message message) {
         try {
-            Request response = request("changePlayerTurn", null);
+            Request response = request("sendMessage",message);
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
-
 
 
 

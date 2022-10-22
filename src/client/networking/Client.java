@@ -1,5 +1,6 @@
 package client.networking;
 
+import shared.Message;
 import shared.User;
 import shared.utils.Subject;
 
@@ -12,13 +13,6 @@ public interface Client extends Subject {
 
    List<String> getAllUsers ();
 
-
-
-   boolean getGameRequest ();
-
     void startClient();
-
-
-    void changePlayerTurn();
-
+    void sendMessage(Message message);
 }

@@ -16,14 +16,14 @@ public class ViewModelFactory {
 
     public LogInViewModel getLoginVM() {
         if (loginVM == null) {
-            loginVM = new LogInViewModel(mf.getLoginModel());
+            loginVM = new LogInViewModel(mf);
         }
         return loginVM;
     }
 
     public SignUpViewModel getSignupVM() {
         if (signupVM == null) {
-            signupVM = new SignUpViewModel(mf.getLoginModel());
+            signupVM = new SignUpViewModel(mf);
         }
         return signupVM;
     }

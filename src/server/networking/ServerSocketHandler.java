@@ -2,6 +2,7 @@ package server.networking;
 
 import server.model.ChatModelServer;
 import server.model.LoginModelServer;
+import shared.Message;
 import shared.User;
 import shared.transferObjects.Request;
 
@@ -45,34 +46,45 @@ public class ServerSocketHandler implements Runnable {
 
             readObject = (Request) inFromClient.readObject();
 
-            if ("Listener".equals(readObject.getType())) {
-                loginModelServer.addListener("userLoggedIn", this::onUserLoggedIn);
-            } else if
-            ("checkSignUp".equals(readObject.getType())) {
-                boolean status = loginModelServer.checkSignUp((String) readObject.getArg());
-                System.out.println("Sign Up Status: " + status);
-                outToClient.writeObject(new Request("checkSignUp", status));
-            } else if
-            ("addUser".equals(readObject.getType())) {
-                loginModelServer.addUser((User) readObject.getArg());
-                outToClient.writeObject(new Request("addUser", null));
-            } else if
-            ("checkLogIn".equals(readObject.getType())) {
-                boolean status = loginModelServer.checkLogIn((User) readObject.getArg());
-                System.out.println("Log In Status: " + status);
-                outToClient.writeObject(new Request("checkLogIn", status));
-                cp.addConnection(this);
-                if (status) {
-//                    cp.broadCastUsername(((User) readObject.getArg()).getUsername());
+            switch (readObject.getType()) {
+                case "Listener" -> {
+                    loginModelServer.addListener("userLoggedIn", this::onUserLoggedIn);
+                    chatModelServer.addListener("newMessage", this::onNewMessage);
                 }
-
-            } else if
-            ("getAllUsers".equals(readObject.getType())) {
-                List<String> allUsers = loginModelServer.getAllUsers();
-                outToClient.writeObject(new Request("getAllUsers", allUsers));
+                case "checkSignUp" -> {
+                    boolean status = loginModelServer.checkSignUp((String) readObject.getArg());
+                    System.out.println("Sign Up Status: " + status);
+                    outToClient.writeObject(new Request("checkSignUp", status));
+                }
+                case "addUser" -> {
+                    loginModelServer.addUser((User) readObject.getArg());
+                    outToClient.writeObject(new Request("addUser", null));
+                }
+                case "checkLogIn" -> {
+                    boolean status = loginModelServer.checkLogIn((User) readObject.getArg());
+                    outToClient.writeObject(new Request("checkLogIn", status));
+                    cp.addConnection(this);
+                }
+                case "getAllUsers" -> {
+                    List<String> allUsers = loginModelServer.getAllUsers();
+                    outToClient.writeObject(new Request("getAllUsers", allUsers));
+                }
+                case "sendMessage" -> {
+                    chatModelServer.addMessage((Message) readObject.getArg());
+                    outToClient.writeObject(new Request("newMessage", null));
+                }
             }
 
         } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void onNewMessage(PropertyChangeEvent event) {
+        try {
+            outToClient.writeObject(new Request(event.getPropertyName(), event.getNewValue()));
+            System.out.println(event.getPropertyName() + ": " + support.getPropertyChangeListeners().length);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -82,28 +94,21 @@ public class ServerSocketHandler implements Runnable {
             outToClient.writeObject(new Request(event.getPropertyName(), event.getNewValue()));
             System.out.println(event.getPropertyName() + ": " + support.getPropertyChangeListeners().length);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Cannot log in to the system");
         }
     }
 
-//    private void onNewUserAdded(PropertyChangeEvent event) {
-//        try {
-//            outToClient.writeObject(new Request(event.getPropertyName(), event.getNewValue()));
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-
-
-    public void sendUsername(String username) {
-        try {
-            outToClient.writeObject(new Request("userLoggedIn", username));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public String getUsername() {
         return ((User) readObject.getArg()).getUsername();
+    }
+
+    public void sendMessage(Message message) {
+        System.out.println(message);
+        try {
+            outToClient.writeObject(new Request("getMessage", message));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package client.view.signUpView;
 
+import client.core.ModelFactory;
 import client.model.LoginModel;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -10,8 +11,8 @@ public class SignUpViewModel {
     private LoginModel loginModel;
     private StringProperty username, password, repeatPassword, errorLabel;
 
-    public SignUpViewModel(LoginModel loginModel) {
-        this.loginModel = loginModel;
+    public SignUpViewModel(ModelFactory modelFactory) {
+        this.loginModel = modelFactory.getLoginModel();
         username = new SimpleStringProperty();
         password = new SimpleStringProperty();
         repeatPassword = new SimpleStringProperty();
@@ -48,7 +49,7 @@ public class SignUpViewModel {
                 username.setValue("");
                 password.setValue("");
                 repeatPassword.setValue("");
-                errorLabel.setValue("");
+                Platform.runLater(()->errorLabel.setValue(""));
             } catch (InterruptedException ex) {
                 throw new RuntimeException(ex);
             }

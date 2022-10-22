@@ -1,6 +1,8 @@
 package server.networking;
 
 
+import shared.Message;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,15 +19,15 @@ public class ConnectionPool {
         handlers.remove(socketHandler);
     }
 
-    public void broadCastUsername(String username) {
-        for (ServerSocketHandler socketHandler : handlers) {
-            socketHandler.sendUsername(username);
-        }
-    }
 
     public int size() {
         return handlers.size();
     }
 
 
+    public void broadCastMessage(Message message) {
+        for (ServerSocketHandler socketHandler : handlers) {
+            socketHandler.sendMessage(message);
+        }
+    }
 }
