@@ -23,6 +23,7 @@ public class ServerSocketHandler implements Runnable {
     private PropertyChangeSupport support;
     private ConnectionPool cp;
     private Request readObject;
+    private User user;
 
     public ServerSocketHandler(Socket socket, LoginModelServer loginModelServer, ChatModelServer chatModelServer, ConnectionPool cp) {
         this.socket = socket;
@@ -48,6 +49,7 @@ public class ServerSocketHandler implements Runnable {
 
             switch (readObject.getType()) {
                 case "Listener" -> {
+                    user = (User) readObject.getArg();
                     loginModelServer.addListener("userLoggedIn", this::onUserLoggedIn);
                     chatModelServer.addListener("newMessage", this::onNewMessage);
                 }
@@ -71,6 +73,7 @@ public class ServerSocketHandler implements Runnable {
                 }
                 case "sendMessage" -> {
                     chatModelServer.addMessage((Message) readObject.getArg());
+                    System.out.println(user + ": server socket");
                     outToClient.writeObject(new Request("newMessage", null));
                 }
             }

@@ -16,21 +16,21 @@ public class ViewModelFactory {
 
     public LogInViewModel getLoginVM() {
         if (loginVM == null) {
-            loginVM = new LogInViewModel(mf);
+            loginVM = new LogInViewModel(mf.getLoginModel());
         }
         return loginVM;
     }
 
     public SignUpViewModel getSignupVM() {
         if (signupVM == null) {
-            signupVM = new SignUpViewModel(mf);
+            signupVM = new SignUpViewModel(mf.getLoginModel());
         }
         return signupVM;
     }
 
     public MainViewModel getMainVM () {
         if (mainVM == null) {
-            mainVM = new MainViewModel(mf);
+            mainVM = new MainViewModel(mf.getChatModel());
         }
         return mainVM;
     }

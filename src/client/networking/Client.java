@@ -13,6 +13,6 @@ public interface Client extends Subject {
 
    List<String> getAllUsers ();
 
-    void startClient();
+    void startClient(User user);
     void sendMessage(Message message);
 }

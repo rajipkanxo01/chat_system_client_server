@@ -16,7 +16,7 @@ public class LoginModelImp implements LoginModel {
     public LoginModelImp(Client client) {
         support = new PropertyChangeSupport(this);
         this.client = client;
-        client.startClient();
+//        client.startClient();
     }
 
     @Override

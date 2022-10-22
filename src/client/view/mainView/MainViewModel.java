@@ -19,15 +19,13 @@ import java.util.List;
 
 public class MainViewModel {
     private ChatModel chatModel;
-    private LoginModel loginModel;
     private ObservableList<String> allUsers;
     private ObservableList<Message> allMessages;
     private SimpleStringProperty messageText;
 
 
-    public MainViewModel(ModelFactory modelFactory) {
-        this.chatModel = modelFactory.getChatModel();
-        this.loginModel = modelFactory.getLoginModel();
+    public MainViewModel(ChatModel chatModel) {
+        this.chatModel = chatModel;
         messageText = new SimpleStringProperty();
 
         List<String> previousUser = chatModel.getAllUsers();
@@ -62,7 +60,7 @@ public class MainViewModel {
 
     public void sendGroupMessage() {
         System.out.println(messageText.getValue() + ":main view model");
-        chatModel.sendMessage(new Message(messageText.getValue(), loginModel.getUser().getUsername()));
+        chatModel.sendMessage(new Message(messageText.getValue(), null));
     }
 
 

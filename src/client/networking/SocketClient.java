@@ -21,14 +21,15 @@ public class SocketClient implements Client {
         support = new PropertyChangeSupport(this);
     }
 
-    public void startClient() {
+    public void startClient(User user) {
+        this.user = user;
         try {
             Socket socket = new Socket("localhost", 2001);
             System.out.println("Client started");
             ObjectOutputStream outToServer = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream inFromServer = new ObjectInputStream(socket.getInputStream());
 
-            new Thread(() -> listenToServer(outToServer, inFromServer)).start();
+            new Thread(() -> listenToServer(outToServer, inFromServer,user)).start();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -40,7 +41,7 @@ public class SocketClient implements Client {
 
     // It sends a request to the server to start listening to it, and then it listens to the server and fires a property
     //  change event for each request it receives
-    private void listenToServer(ObjectOutputStream outToServer, ObjectInputStream inFromServer) {
+    private void listenToServer(ObjectOutputStream outToServer, ObjectInputStream inFromServer, User user) {
         try {
             outToServer.writeObject(new Request("Listener",user));
             while (true) {
@@ -83,6 +84,9 @@ public class SocketClient implements Client {
         try {
             Request response = request("checkLogIn", user);
             status = (boolean) response.getArg();
+            if (status) {
+                startClient(user);
+            }
 
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
