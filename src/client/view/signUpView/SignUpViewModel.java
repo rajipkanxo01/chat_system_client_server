@@ -11,8 +11,8 @@ public class SignUpViewModel {
     private LoginModel loginModel;
     private StringProperty username, password, repeatPassword, errorLabel;
 
-    public SignUpViewModel(ModelFactory modelFactory) {
-        this.loginModel = modelFactory.getLoginModel();
+    public SignUpViewModel(LoginModel loginModel) {
+        this.loginModel = loginModel;
         username = new SimpleStringProperty();
         password = new SimpleStringProperty();
         repeatPassword = new SimpleStringProperty();

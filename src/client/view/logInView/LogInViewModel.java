@@ -13,8 +13,8 @@ public class LogInViewModel {
     private StringProperty username, password, errorLabel;
 
 
-    public LogInViewModel(ModelFactory modelFactory) {
-        this.loginModel = modelFactory.getLoginModel();
+    public LogInViewModel(LoginModel loginModel) {
+        this.loginModel = loginModel;
         username = new SimpleStringProperty();
         password = new SimpleStringProperty();
         errorLabel = new SimpleStringProperty();

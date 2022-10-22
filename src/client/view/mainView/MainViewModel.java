@@ -25,9 +25,8 @@ public class MainViewModel {
     private SimpleStringProperty messageText;
 
 
-    public MainViewModel(ModelFactory modelFactory) {
-        this.chatModel = modelFactory.getChatModel();
-        this.loginModel = modelFactory.getLoginModel();
+    public MainViewModel(ChatModel chatModel) {
+        this.chatModel = chatModel;
         messageText = new SimpleStringProperty();
 
         List<String> previousUser = chatModel.getAllUsers();
