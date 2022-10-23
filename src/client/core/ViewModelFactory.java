@@ -30,7 +30,7 @@ public class ViewModelFactory {
 
     public MainViewModel getMainVM () {
         if (mainVM == null) {
-            mainVM = new MainViewModel(mf.getChatModel());
+            mainVM = new MainViewModel(mf.getChatModel(),mf.getLoginModel());
         }
         return mainVM;
     }

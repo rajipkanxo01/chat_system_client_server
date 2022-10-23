@@ -44,6 +44,7 @@ public class MainViewController implements Controller {
         allMessagesList.setItems(vmf.getMainVM().getAllMessages());
 
         sendMessageField.textProperty().bindBidirectional(vmf.getMainVM().messageTextProperty());
+        user.textProperty().bind(vmf.getMainVM().currentUserProperty());
 
     }
 

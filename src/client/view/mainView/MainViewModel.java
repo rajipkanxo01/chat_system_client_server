@@ -19,19 +19,25 @@ import java.util.List;
 
 public class MainViewModel {
     private ChatModel chatModel;
+    private LoginModel loginModel;
     private ObservableList<String> allUsers;
     private ObservableList<Message> allMessages;
     private SimpleStringProperty messageText;
+    private SimpleStringProperty currentUser;
 
 
-    public MainViewModel(ChatModel chatModel) {
+    public MainViewModel(ChatModel chatModel, LoginModel loginModel) {
         this.chatModel = chatModel;
+        this.loginModel = loginModel;
         messageText = new SimpleStringProperty();
+        currentUser = new SimpleStringProperty();
+
+        currentUser.setValue(loginModel.getUser().getUsername());
 
         List<String> previousUser = chatModel.getAllUsers();
         allUsers = FXCollections.observableArrayList(previousUser);
 
-        allMessages = FXCollections.observableArrayList();
+        allMessages = FXCollections.observableArrayList(chatModel.getAllPreviousMessages());
 
         chatModel.addListener("userLoggedIn", this::userAdded);
         chatModel.addListener("newMessage", this::newMessage);
@@ -45,8 +51,11 @@ public class MainViewModel {
 
     //showing user list and updating
     private void userAdded(PropertyChangeEvent event) {
-
         Platform.runLater(() -> allUsers.add(((User) event.getNewValue()).getUsername()));
+    }
+
+    public void sendGroupMessage() {
+        chatModel.sendMessage(new Message(messageText.getValue(), currentUser.getValue()));
     }
 
 
@@ -58,13 +67,11 @@ public class MainViewModel {
         return allMessages;
     }
 
-    public void sendGroupMessage() {
-        System.out.println(messageText.getValue() + ":main view model");
-        chatModel.sendMessage(new Message(messageText.getValue(), null));
-    }
-
-
     public SimpleStringProperty messageTextProperty() {
         return messageText;
+    }
+
+    public SimpleStringProperty currentUserProperty() {
+        return currentUser;
     }
 }

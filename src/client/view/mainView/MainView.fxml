@@ -5,40 +5,42 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <SplitPane dividerPositions="0.28181306306306303" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="463.0" prefWidth="712.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.view.mainView.MainViewController">
     <items>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #00ABB3;">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #007aff;">
             <children>
                 <ListView fx:id="allUsersList" layoutX="11.0" layoutY="46.0" prefHeight="374.0" prefWidth="175.0" />
-                <Button layoutX="65.0" layoutY="427.0" mnemonicParsing="false" onAction="#onSelectUser" text="Select User" />
-            <Label fx:id="user" layoutX="41.0" layoutY="83.0" text="Label" textFill="WHITE">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0471a6" height="39.0" layoutX="11.0" layoutY="3.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="175.0" />
-            <Label layoutX="19.0" layoutY="-1.0" text="Active User" textFill="WHITE">
-               <font>
-                  <Font size="32.0" />
-               </font>
-            </Label>
+                <Button layoutX="43.0" layoutY="422.0" mnemonicParsing="false" onAction="#onSelectUser" text="Select User" />
+                <Label fx:id="user" layoutX="62.0" layoutY="10.0" text="User" textFill="WHITE">
+                    <font>
+                        <Font name="SansSerif Bold" size="22.0" />
+                    </font>
+                </Label>
+                <ImageView fitHeight="39.0" fitWidth="43.0" layoutX="20.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/147142.png" />
+                    </image>
+                </ImageView>
             </children>
         </AnchorPane>
-      <AnchorPane fx:id="mainAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #3C4048 #3C4048;">
-         <children>
-            <ListView fx:id="allMessagesList" layoutX="16.0" layoutY="47.0" prefHeight="346.0" prefWidth="470.0" />
-            <TextField fx:id="sendMessageField" layoutX="27.0" layoutY="407.0" prefHeight="30.0" prefWidth="402.0" promptText="Type Your Message" />
-            <Button layoutX="442.0" layoutY="414.0" mnemonicParsing="false" onAction="#onSendMessage" text="Send" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0471a6" height="39.0" layoutX="16.0" layoutY="4.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="470.0" />
-            <Label layoutX="27.0" text="Global Chat" textFill="WHITE">
-               <font>
-                  <Font size="32.0" />
-               </font>
-            </Label>
-         </children></AnchorPane>
+        <AnchorPane fx:id="mainAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: #9c9c9f;">
+            <children>
+                <ListView fx:id="allMessagesList" layoutX="16.0" layoutY="47.0" prefHeight="346.0" prefWidth="470.0" />
+                <TextField fx:id="sendMessageField" layoutX="27.0" layoutY="407.0" prefHeight="30.0" prefWidth="402.0" promptText="Type Your Message" />
+                <Button layoutX="442.0" layoutY="409.0" mnemonicParsing="false" onAction="#onSendMessage" text="Send" />
+                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0471a6" height="39.0" layoutX="16.0" layoutY="4.0" stroke="WHITE" strokeType="INSIDE" strokeWidth="0.0" width="470.0" />
+                <Label layoutX="27.0" layoutY="4.0" text="Global Chat" textFill="WHITE">
+                    <font>
+                        <Font name="SansSerif Regular" size="32.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
     </items>
 </SplitPane>

@@ -8,4 +8,6 @@ import java.util.List;
 public interface ChatModelServer extends Subject {
     void addMessage (Message message);
     List<Message> getAllMessages ();
+
+    List<Message> getPreviousMessages();
 }

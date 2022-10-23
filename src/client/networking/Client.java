@@ -13,6 +13,9 @@ public interface Client extends Subject {
 
    List<String> getAllUsers ();
 
-    void startClient(User user);
+    void startClient();
     void sendMessage(Message message);
+
+    List<Message> getPreviousMessages();
+
 }

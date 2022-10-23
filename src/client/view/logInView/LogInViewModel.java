@@ -1,6 +1,6 @@
 package client.view.logInView;
 
-import client.core.ModelFactory;
+
 import client.model.LoginModel;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;

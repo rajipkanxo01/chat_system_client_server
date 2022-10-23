@@ -29,6 +29,11 @@ public class ChatModelServerImp implements ChatModelServer {
         return messages;
     }
 
+    @Override
+    public List<Message> getPreviousMessages() {
+        return messages;
+    }
+
 
     @Override
     public void addListener(String eventName, PropertyChangeListener listener) {

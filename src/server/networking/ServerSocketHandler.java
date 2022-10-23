@@ -76,6 +76,10 @@ public class ServerSocketHandler implements Runnable {
                     System.out.println(user + ": server socket");
                     outToClient.writeObject(new Request("newMessage", null));
                 }
+                case "getPreviousMessages" -> {
+                    List<Message> previousMessages = chatModelServer.getPreviousMessages();
+                    outToClient.writeObject(new Request("getPreviousMessages", previousMessages));
+                }
             }
 
         } catch (IOException | ClassNotFoundException e) {

@@ -35,7 +35,7 @@ public class ChatModelImp implements ChatModel {
 
     @Override
     public List<Message> getAllPreviousMessages() {
-        return null;
+        return client.getPreviousMessages();
     }
 
 

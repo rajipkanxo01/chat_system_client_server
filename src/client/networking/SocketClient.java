@@ -14,22 +14,20 @@ import java.util.List;
 
 public class SocketClient implements Client {
     private PropertyChangeSupport support;
-    private User user;
 
 
     public SocketClient() {
         support = new PropertyChangeSupport(this);
     }
 
-    public void startClient(User user) {
-        this.user = user;
+    public void startClient() {
         try {
             Socket socket = new Socket("localhost", 2001);
             System.out.println("Client started");
             ObjectOutputStream outToServer = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream inFromServer = new ObjectInputStream(socket.getInputStream());
 
-            new Thread(() -> listenToServer(outToServer, inFromServer,user)).start();
+            new Thread(() -> listenToServer(outToServer, inFromServer)).start();
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -37,13 +35,11 @@ public class SocketClient implements Client {
     }
 
 
-
-
     // It sends a request to the server to start listening to it, and then it listens to the server and fires a property
     //  change event for each request it receives
-    private void listenToServer(ObjectOutputStream outToServer, ObjectInputStream inFromServer, User user) {
+    private void listenToServer(ObjectOutputStream outToServer, ObjectInputStream inFromServer) {
         try {
-            outToServer.writeObject(new Request("Listener",user));
+            outToServer.writeObject(new Request("Listener", null));
             while (true) {
                 System.out.println("listen to server inside while");
                 Request request = (Request) inFromServer.readObject();
@@ -85,7 +81,7 @@ public class SocketClient implements Client {
             Request response = request("checkLogIn", user);
             status = (boolean) response.getArg();
             if (status) {
-                startClient(user);
+//                startClient();
             }
 
         } catch (IOException | ClassNotFoundException e) {
@@ -105,13 +101,25 @@ public class SocketClient implements Client {
     }
 
     @Override
+    public List<Message> getPreviousMessages() {
+        try {
+            Request response = request("getPreviousMessages", null);
+            return (List<Message>) response.getArg();
+        } catch (IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Override
     public void sendMessage(Message message) {
         try {
-            Request response = request("sendMessage",message);
+            Request response = request("sendMessage", message);
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
+
 
 
 
