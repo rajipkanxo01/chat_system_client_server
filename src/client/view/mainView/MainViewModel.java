@@ -48,6 +48,10 @@ public class MainViewModel {
         Platform.runLater(() -> allMessages.add(((Message) event.getNewValue())));
     }
 
+    public void clearAll () {
+        messageText.setValue("");
+    }
+
 
     //showing user list and updating
     private void userAdded(PropertyChangeEvent event) {

@@ -56,6 +56,7 @@ public class MainViewController implements Controller {
 
     public void onSendMessage(ActionEvent event) {
         vmf.getMainVM().sendGroupMessage();
+        vmf.getMainVM().clearAll();
     }
 
 }
